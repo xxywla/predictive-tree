@@ -7,7 +7,7 @@ The structure is following:
 
 Predictive-tree construction algorithm is following:
 
-![alg1](.\src\main\resources\alg1.png)
+![alg1](https://github.com/xxywla/predictive-tree/tree/master/src/main/resources/alg1.png)
 
 Predictive-tree maintenance algorithm is following:
 
