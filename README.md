@@ -3,7 +3,7 @@ Reimplement paper Predictive Tree: An Efficient Index for Predictive Queries On 
 
 The structure is following:
 
-![structure](.\src\main\resources\structure.png)
+![structure](https://raw.githubusercontent.com/xxywla/predictive-tree/master/src/main/resources/structure.png)
 
 Predictive-tree construction algorithm is following:
 
@@ -11,7 +11,7 @@ Predictive-tree construction algorithm is following:
 
 Predictive-tree maintenance algorithm is following:
 
-![alg2](.\src\main\resources\alg2.png)
+![alg2](https://raw.githubusercontent.com/xxywla/predictive-tree/master/src/main/resources/alg2.png)
 
 ## Steps
 ### One
