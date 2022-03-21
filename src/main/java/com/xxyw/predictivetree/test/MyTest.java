@@ -19,9 +19,9 @@ public class MyTest {
 
         // 获取地图信息
         Graph<Long> graph = MapDao.getGraph();
-//        System.out.println(graph);
+        System.out.println(graph);
         Map<Long, Point> pointMap = MapDao.getVerticesPointMap();
-//        System.out.println(pointMap);
+        System.out.println(pointMap);
 
         // 创建 RTree
         RTree<Long, Point> rTree = RTree.create();
@@ -31,7 +31,7 @@ public class MyTest {
             rTree = rTree.add(vertex.getValue(), pointMap.get(vertex.getValue()));
         }
 //        System.out.println(rTree.asString());
-//        rTree.visualize(1000, 1000).save("target/mytree.png");
+        rTree.visualize(1000, 1000).save("target/mytree.png");
 
         // 获取轨迹信息
         List<Point> points = TrajectoryDao.getTrajectory();
@@ -42,7 +42,7 @@ public class MyTest {
         System.out.println(trajectoryBuffer);
 
         // 找到当前轨迹点最近的路网上的节点
-        Graph.Vertex<Long> node = graph.getVertice(trajectoryBuffer.get(0));
+        Graph.Vertex<Long> node = utils.nearestNode(points.get(0), rTree, graph);
         System.out.println(node);
 
         // 对轨迹构建 Predictive-tree
@@ -50,8 +50,8 @@ public class MyTest {
         System.out.println(predictiveTree);
 
         // 物体移动，维护 Predictive tree
-        for (Long pointId : trajectoryBuffer) {
-            node = graph.getVertice(pointId);
+        for (Point point : points) {
+            node = utils.nearestNode(point, rTree, graph);
             predictiveTree.maintenance(node, 300, graph);
         }
     }

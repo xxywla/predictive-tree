@@ -16,7 +16,6 @@ public class TrajectoryDao {
         try {
             BufferedReader in = new BufferedReader(new FileReader("D:/data/java_predictive_tree/little/tra_test.txt"));
             String str;
-            int i = 0;
             while ((str = in.readLine()) != null) {
 //                System.out.println(str);
 //                119.37587 35.15589,119.37587 35.15589,
