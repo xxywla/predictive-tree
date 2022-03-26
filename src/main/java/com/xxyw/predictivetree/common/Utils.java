@@ -33,7 +33,7 @@ public class Utils<T extends Comparable<T>> {
                 }).toList().toBlocking().single();
 //        System.out.println("RTree查询结果的个数 " + result.size());
 
-        return graph.getVertice(result.get(0).value());
+        return graph.getVertex(result.get(0).value());
     }
 
     public List<T> getTrajectoryBuffer(List<Point> points, RTree<T, Point> rTree, Graph<T> graph) {

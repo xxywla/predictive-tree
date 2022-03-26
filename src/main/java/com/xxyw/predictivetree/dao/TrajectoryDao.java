@@ -12,9 +12,14 @@ import java.util.List;
 
 public class TrajectoryDao {
     public static List<Point> getTrajectory() {
+        String path = "D:/data/java_predictive_tree/little/tra_test.txt";
+        return getTrajectory(path);
+    }
+
+    public static List<Point> getTrajectory(String path) {
         List<Point> tra = new ArrayList<>();
         try {
-            BufferedReader in = new BufferedReader(new FileReader("D:/data/java_predictive_tree/little/tra_test.txt"));
+            BufferedReader in = new BufferedReader(new FileReader(path));
             String str;
             while ((str = in.readLine()) != null) {
 //                System.out.println(str);

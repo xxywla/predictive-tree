@@ -38,24 +38,26 @@ public class PredictiveTree<T extends Comparable<T>> {
                 root.addChild(new Node<>(pair.getKey()));
                 visited.add(pair.getKey());
                 for (Graph.Edge<T> edge : graph.getToEdges(pair.getKey())) {
-                    heap.add(new Pair<>(edge.getToVertex(), edge.getCost()));
+                    heap.add(new Pair<>(edge.getToVertex(), pair.getValue() + edge.getCost()));
                 }
             }
         }
         System.out.println("访问的节点个数 = " + visited.size());
+        System.out.println("children list 的长度 " + this.root.getChildren().size());
     }
 
     public void maintenance(Graph.Vertex<T> node, int timeRange, Graph<T> graph) {
+        System.out.println("node " + node.getValue() + " ,root " + this.root.getPoint().getValue());
 
         // 还在当前节点附近，直接返回
-        if (node.getValue() == this.root.getPoint().getValue()) {
+        if (node.getValue().equals(this.root.getPoint().getValue())) {
             return;
         }
 
         // 从 children 列表中找下一个节点
         for (Node<T> child : root.getChildren()) {
             // 找到下一个节点
-            if (child.getPoint().getValue() == node.getValue()) {
+            if (child.getPoint().getValue().equals(node.getValue())) {
                 // Expand
                 this.root = new PredictiveTree<T>(node, timeRange, graph).getRoot();
                 return;
@@ -63,11 +65,20 @@ public class PredictiveTree<T extends Comparable<T>> {
         }
 
         // 没有找到重新建树
+        System.out.println("The next position is not in children list !!!");
         this.root = new PredictiveTree<T>(node, timeRange, graph).getRoot();
     }
 
     public Node<T> getRoot() {
         return root;
+    }
+
+    public List<T> getChildren() {
+        List<T> children = new ArrayList<>();
+        for (Node<T> child : this.root.getChildren()) {
+            children.add(child.getPoint().getValue());
+        }
+        return children;
     }
 
     @Override

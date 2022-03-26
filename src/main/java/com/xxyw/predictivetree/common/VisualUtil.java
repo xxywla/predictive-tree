@@ -8,10 +8,11 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Visualize {
+public class VisualUtil {
     /**
      * 把轨迹点列表转成json文件用于QGIS可视化
      *
@@ -38,6 +39,12 @@ public class Visualize {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void saveAsJson(List<double[]> poiList, String type, String path) {
+        Map<String, List<double[]>> mp = new HashMap<>();
+        mp.put(path, poiList);
+        saveAsJson(mp, type, path);
     }
 
     public static class Feature {

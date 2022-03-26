@@ -1,6 +1,6 @@
 package com.xxyw.predictivetree.test;
 
-import com.xxyw.predictivetree.common.Visualize;
+import com.xxyw.predictivetree.common.VisualUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +23,6 @@ public class TestJson {
                 this.add(new double[]{119.39338, 35.22578});
             }
         });
-        Visualize.saveAsJson(mp, "LineString", path);
+        VisualUtil.saveAsJson(mp, "LineString", path);
     }
 }

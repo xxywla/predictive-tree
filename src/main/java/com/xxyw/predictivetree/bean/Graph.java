@@ -3,10 +3,10 @@ package com.xxyw.predictivetree.bean;
 import java.util.*;
 
 public class Graph<T extends Comparable<T>> {
-    private Map<T, Vertex<T>> vertexMap = new HashMap<>();
-    private Map<T, List<Edge<T>>> edgesMap = new HashMap<>();
-    private List<Vertex<T>> allVertices = new ArrayList<>();
-    private List<Edge<T>> allEdges = new ArrayList<>();
+    private final Map<T, Vertex<T>> vertexMap = new HashMap<>();
+    private final Map<T, List<Edge<T>>> edgesMap = new HashMap<>();
+    private final List<Vertex<T>> allVertices = new ArrayList<>();
+    private final List<Edge<T>> allEdges = new ArrayList<>();
 
     public Graph(Collection<Graph.Vertex<T>> vertices, Collection<Graph.Edge<T>> edges) {
         this.allVertices.addAll(vertices);
@@ -16,9 +16,26 @@ public class Graph<T extends Comparable<T>> {
             vertexMap.put(vertex.value, vertex);
         }
         for (Edge<T> edge : edges) {
-            List<Edge<T>> list = edgesMap.getOrDefault(edge.from.value, new ArrayList<>());
-            list.add(edge);
-            edgesMap.put(edge.from.value, list);
+            final Vertex<T> from = edge.from;
+            final Vertex<T> to = edge.to;
+
+            // 保证边的两个顶点都在顶点集合
+            if (!vertexMap.containsKey(from.value) || !vertexMap.containsKey(to.value))
+                continue;
+
+            // 边 from 顶点的邻接表
+            List<Edge<T>> list1 = edgesMap.getOrDefault(from.value, new ArrayList<>());
+            list1.add(edge);
+            edgesMap.put(from.value, list1);
+
+            // 边 to 顶点的邻接表
+            List<Edge<T>> list2 = edgesMap.getOrDefault(to.value, new ArrayList<>());
+            Edge<T> reciprocal = new Edge<>(edge.cost, to, from);
+            list2.add(reciprocal);
+            edgesMap.put(to.value, list2);
+
+            // 双向边也需要加入边的集合
+            allEdges.add(reciprocal);
         }
     }
 
@@ -30,7 +47,7 @@ public class Graph<T extends Comparable<T>> {
         return allEdges;
     }
 
-    public Vertex<T> getVertice(T value) {
+    public Vertex<T> getVertex(T value) {
         return vertexMap.getOrDefault(value, null);
     }
 
