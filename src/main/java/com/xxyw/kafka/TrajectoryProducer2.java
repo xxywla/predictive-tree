@@ -29,7 +29,7 @@ public class TrajectoryProducer2 {
 
         // 发送数据，模拟实时采集轨迹数据
         for (Point point : points) {
-            kafkaProducer.send(new ProducerRecord<>("trajectory", point.toString()), new Callback() {
+            kafkaProducer.send(new ProducerRecord<>("waybill-22222", point.toString()), new Callback() {
                 @Override
                 public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                     if (e == null) {
